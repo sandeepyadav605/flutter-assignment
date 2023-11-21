@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   final todoControllerTitle = TextEditingController();
   final todoControllerDesc = TextEditingController();
 
-  void addToDo() async {
+  void addTask() async {
     if (todoControllerTitle.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Empty title"),
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
       ));
       return;
     }
-    await saveTodo(todoControllerTitle.text, todoControllerDesc.text);
+    await saveTask(todoControllerTitle.text, todoControllerDesc.text);
     setState(() {
       todoControllerTitle.clear();
       todoControllerDesc.clear();
@@ -93,13 +93,13 @@ class _HomeState extends State<Home> {
                         onPrimary: Colors.white,
                         primary: Colors.blueAccent,
                       ),
-                      onPressed: addToDo,
+                      onPressed: addTask,
                       child: Text("Add Task"))
                 ],
               )),
           Expanded(
               child: FutureBuilder<List<ParseObject>>(
-                  future: getTodo(),
+                  future: getTasks(),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
@@ -147,7 +147,7 @@ class _HomeState extends State<Home> {
                                       Checkbox(
                                           value: varDone,
                                           onChanged: (value) async {
-                                            await updateTodo(
+                                            await updateTask(
                                                 varTodo.objectId!, value!);
                                             setState(() {
                                               //Refresh UI
@@ -159,7 +159,7 @@ class _HomeState extends State<Home> {
                                           color: Colors.blue,
                                         ),
                                         onPressed: () async {
-                                          await deleteTodo(varTodo.objectId!);
+                                          await deleteTask(varTodo.objectId!);
                                           setState(() {
                                             final snackBar = SnackBar(
                                               content: Text("Task deleted!"),
@@ -192,7 +192,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Future<void> saveTodo(String title, String desc) async {
+  Future<void> saveTask(String title, String desc) async {
     final todo = ParseObject('Task')..set('title', title)
       ..set('description', desc)
       ..set('done', false);
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
     //await Future.delayed(Duration(seconds: 1), () {});
   }
 
-  Future<List<ParseObject>> getTodo() async {
+  Future<List<ParseObject>> getTasks() async {
     QueryBuilder<ParseObject> queryTodo =
     QueryBuilder<ParseObject>(ParseObject('Task'));
     final ParseResponse apiResponse = await queryTodo.query();
@@ -212,14 +212,14 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Future<void> updateTodo(String id, bool done) async {
+  Future<void> updateTask(String id, bool done) async {
     var todo = ParseObject('Task')
       ..objectId = id
       ..set('done', done);
     await todo.save();
   }
 
-  Future<void> deleteTodo(String id) async {
+  Future<void> deleteTask(String id) async {
     var todo = ParseObject('Task')..objectId = id;
     await todo.delete();
   }
