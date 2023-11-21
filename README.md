@@ -1,4 +1,4 @@
-# taskmanagement using Flutter and Back4App
+# Flutter and Back4App Integration
 
 A Todo/ Task management Flutter project.
 
