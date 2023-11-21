@@ -2,13 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'screens/task_details.dart';
+import 'const/const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final keyApplicationId = 'IC36GzuAmO88Z8r7VlXVPzyrHtvkoSky6TmeBRW5';
-  final keyClientKey = '3TsMnaBy8Y4vVT4jOZqSRPkWm8mpgwt9QWVeUOIw';
-  final keyParseServerUrl = 'https://parseapi.back4app.com';
+  final keyApplicationId = PARSE_KEY_Application_Id;
+  final keyClientKey = PARSE_KEY_Client_Id;
+  final keyParseServerUrl = PARSE_KEY_ParseServer_Url;
 
   await Parse().initialize(keyApplicationId, keyParseServerUrl,
       clientKey: keyClientKey, debug: true);
