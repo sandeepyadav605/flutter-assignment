@@ -1,10 +1,17 @@
-# taskmanagement
+# taskmanagement using Flutter and Back4App
 
-A new Flutter project.
+A Todo/ Task management Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+clone the repository
+cd flutter-assignment
+run flutter doctor: to make sure the flutter is configure properly
+create Back4App account and steup the applicaiton
+update the depenacies and run flutter pub get
+add the applicaiton id and client key of Back4App
+run the command flutter run
+
 
 A few resources to get you started if this is your first Flutter project:
 
